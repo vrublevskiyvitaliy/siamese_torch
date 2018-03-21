@@ -247,7 +247,7 @@ def train(args):
     test_against_data(args, 'training', train_loader, siamese_net)
 
     # Save the Trained Model
-    model_file_name = "{}_{}".format(cur_time(), args.model_file)
+    model_file_name = "models/{}_{}".format(cur_time(), args.model_file)
     torch.save(siamese_net.state_dict(), model_file_name)
     print("Saved model at {}".format(model_file_name))
     return siamese_net
