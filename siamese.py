@@ -315,7 +315,7 @@ def main():
     arg_parser.add_argument("-c", "--cuda", action='store_true', default=False)
     arg_parser.add_argument("-r", "--randaug", action='store_true', default=False)
     arg_parser.add_argument("-cl", "--contra_loss", action='store_true', default=False)
-    arg_parser.add_argument("-rt", "--retraine", anargs='?', help="model file path", default=False)
+    arg_parser.add_argument("-rt", "--retraine", nargs='?', help="model file path", default=False)
 
     args = arg_parser.parse_args()
 
