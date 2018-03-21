@@ -15,7 +15,7 @@ from PIL import Image
 #import cv2
 
 # Hyper Parameters
-BATCH_SIZE = 80
+BATCH_SIZE = 70
 TEST_AFTER_EACH_EPOCH = 5
 
 
