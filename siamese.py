@@ -15,7 +15,8 @@ from PIL import Image
 #import cv2
 
 # Hyper Parameters
-BATCH_SIZE = 50
+BATCH_SIZE = 80
+TEST_AFTER_EACH_EPOCH = 5
 
 
 class ContrastiveLoss(torch.nn.Module):
@@ -242,6 +243,8 @@ def train(args):
                 loss.backward()
                 optimizer.step()
         print('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f' % (epoch+1, num_epochs, i+1, len(train_dataset)//BATCH_SIZE, loss.data[0]))
+        if epoch % TEST_AFTER_EACH_EPOCH == 0:
+            test(args, siamese_net)
 
     # Training accuracy
     test_against_data(args, 'training', train_loader, siamese_net)
