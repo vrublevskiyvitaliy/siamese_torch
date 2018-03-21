@@ -12,7 +12,7 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from torch.autograd import Variable
 from PIL import Image
-import cv2
+#import cv2
 
 # Hyper Parameters
 BATCH_SIZE = 50
@@ -74,26 +74,27 @@ class LFWDataset(Dataset):
             return img.rotate(degree)
         def flip(img):
             return img.transpose(Image.FLIP_LEFT_RIGHT)
-        def translate(img):
-            d_x = random.randrange(-10, 10)
-            d_y = random.randrange(-10, 10)
-            img = np.array(img)
-            mat = np.float32([[1, 0, d_x], [0, 1, d_y]])
-            num_rows, num_cols = img.shape[:2]
-            img = cv2.warpAffine(img, mat, (num_cols, num_rows))
-            return Image.fromarray(np.uint8(img))
-        def scale(img):
-            scale = 0.7 + 0.6 * random.random()
-            img = np.array(img)
-            mat = np.float32([[scale, 0, 0], [0, scale, 0]])
-            num_rows, num_cols = img.shape[:2]
-            img = cv2.warpAffine(img, mat, (num_cols, num_rows))
-            return Image.fromarray(np.uint8(img))
+        # def translate(img):
+        #     d_x = random.randrange(-10, 10)
+        #     d_y = random.randrange(-10, 10)
+        #     img = np.array(img)
+        #     mat = np.float32([[1, 0, d_x], [0, 1, d_y]])
+        #     num_rows, num_cols = img.shape[:2]
+        #     img = cv2.warpAffine(img, mat, (num_cols, num_rows))
+        #     return Image.fromarray(np.uint8(img))
+        # def scale(img):
+        #     scale = 0.7 + 0.6 * random.random()
+        #     img = np.array(img)
+        #     mat = np.float32([[scale, 0, 0], [0, scale, 0]])
+        #     num_rows, num_cols = img.shape[:2]
+        #     img = cv2.warpAffine(img, mat, (num_cols, num_rows))
+        #     return Image.fromarray(np.uint8(img))
 
         if random.random() > prob:
             return img
 
-        transform_ops = [rotate, flip, translate, scale]
+        # transform_ops = [rotate, flip, translate, scale]
+        transform_ops = [rotate, flip]
         op_len = random.randrange(1, len(transform_ops) + 1)
         ops = random.sample(transform_ops, op_len)
         for op in ops:
