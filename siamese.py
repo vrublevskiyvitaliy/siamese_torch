@@ -198,7 +198,11 @@ def train(args):
                                                batch_size=BATCH_SIZE,
                                                shuffle=True)
 
-    siamese_net = SiameseNetwork(args.contra_loss)
+    if args.retraine:
+        saved_model = torch.load(args.retraine)
+        siamese_net = SiameseNetwork(args.contra_loss)
+        siamese_net.load_state_dict(saved_model)
+
     if args.cuda:
         siamese_net = siamese_net.cuda()
 
@@ -310,6 +314,7 @@ def main():
     arg_parser.add_argument("-c", "--cuda", action='store_true', default=False)
     arg_parser.add_argument("-r", "--randaug", action='store_true', default=False)
     arg_parser.add_argument("-cl", "--contra_loss", action='store_true', default=False)
+    arg_parser.add_argument("-rt", "--retraine", anargs='?', help="model file path", default=False)
 
     args = arg_parser.parse_args()
 
